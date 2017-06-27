@@ -5,13 +5,15 @@
 
 ## Introduction
 
+This program is also available as a java application https://github.com/cedricwalter/TVProgram
+
 For People with visual impairments it is difficult or impossible to use on-screen TV programme guides, though watching TV remains important to them.
 
 Click below to see video on youtube
 
 [![TVprogram](https://img.youtube.com/vi/bEzWkPFL3ns/0.jpg)](https://youtu.be/bEzWkPFL3ns)
 
-This java application is able to get the TV program and read with a Text to Speech (TTS) engine on any computer: Windows, Linux, MAC and event platform like the Raspberry PI. 
+This kotlin application is able to get the TV program and read with a Text to Speech (TTS) engine on any computer: Windows, Linux, MAC and event platform like the Raspberry PI. 
 
 This is especially useful for blind or disabled people. It run very well on a raspberry pi and can be used with physical buttons, crontab, command line.
 
@@ -19,7 +21,7 @@ This is especially useful for blind or disabled people. It run very well on a ra
 
 It use either Amazon AWS Polly or MaryTTS:
 * Amazon AWS Polly Amazon Polly is a service that turns text into lifelike speech. Polly lets you create applications that talk, enabling you to build entirely new categories of speech-enabled products. Polly is an Amazon AI service that uses advanced deep learning technologies to synthesize speech that sounds like a human voice. https://aws.amazon.com/polly/
-* MaryTTS (https://github.com/marytts/marytts), an open-source, multilingual Text-to-Speech Synthesis platform written in Java. It was originally developed as a collaborative project of DFKI’s Language Technology Lab and the Institute of Phonetics at Saarland University. It is now maintained by the Multimodal Speech Processing Group in the Cluster of Excellence MMCI and DFKI.
+* MaryTTS (https://github.com/marytts/marytts), an open-source, multilingual Text-to-Speech Synthesis platform written in kotlin. It was originally developed as a collaborative project of DFKI’s Language Technology Lab and the Institute of Phonetics at Saarland University. It is now maintained by the Multimodal Speech Processing Group in the Cluster of Excellence MMCI and DFKI.
 As of version 5.2, MaryTTS supports German, British and American English, French, Italian, Luxembourgish, Russian, Swedish, Telugu, and Turkish; more languages are in preparation. MaryTTS comes with toolkits for quickly adding support for new languages and for building unit selection and HMM-based synthesis voices.
 
 ## Currently
@@ -128,7 +130,7 @@ Time increment can be changed
 ![interactive.png](interactive.png)
 Recommended to run on a pi with 4 digital buttons
 
-`java -jar tvprogram-1.0-SNAPSHOT-shaded.jar interactive`
+`kotlin -jar tvprogram-1.0-SNAPSHOT-shaded.jar interactive`
 
 The natural order in config.properties for channel is taken, in a circular fashion
 free=channel1,channel2,channel3
@@ -139,7 +141,7 @@ Pin names can be assigned (mapping) in config.properties
 ## Get tv program running now
 Give you the actual TVProgram on all channels running now.
 
-`java -jar tvprogram-1.0-SNAPSHOT-shaded.jar now`
+`kotlin -jar tvprogram-1.0-SNAPSHOT-shaded.jar now`
 
 **Example when TTSReader=NoOPTTSReader**
 ```
@@ -165,7 +167,7 @@ Sur 6ter, Docteur Quinn, femme médecin, reste 27 minutes sur 55 minutes
 ## Get tv program starting between 20:00 and 22:00
 Configurable guide, for example all TVProgram tonight on all channels
 
-`java -jar tvprogram-1.0-SNAPSHOT-shaded.jar program "20:00" "22:00"`
+`kotlin -jar tvprogram-1.0-SNAPSHOT-shaded.jar program "20:00" "22:00"`
 
 **Example when TTSReader=NoOPTTSReader**
 ```
@@ -178,7 +180,7 @@ Sur TF1, de 20:50 à 20:55, durée 5 minutes, C'est Canteloup Divertissement-hum
 
 ![gpio-listener-example.png](gpio-listener-example.png)
 
-`sudo java -jar tvprogram-1.0-SNAPSHOT-shaded.jar pi`
+`sudo kotlin -jar tvprogram-1.0-SNAPSHOT-shaded.jar pi`
 
 * short press for what's now on TV
 * long press for TV program
@@ -194,7 +196,7 @@ It is recommended to set properly the timezone at reboot
 `sudo raspi-config`
 configure Timezone using menu `4 Localization Options`
 
-### Install JAVA
+### Install kotlin
 Open a terminal and execute the following commands:
 
 ```
