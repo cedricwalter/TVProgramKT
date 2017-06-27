@@ -1,0 +1,5 @@
+language: kotlin
+jdk:
+  - oraclejdk8
+
+script: mvn package

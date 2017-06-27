@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cedricwalter</groupId>
+    <artifactId>tvprogram</artifactId>
+    <version>1.1-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <marytts.version>5.2</marytts.version>
+        <rome.version>1.7.1</rome.version>
+
+        <kotlin.version>1.1.3</kotlin.version>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <version>${kotlin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <basedir>${basedir}/src/</basedir>
+                    <header>src/etc/header.txt</header>
+                    <quiet>false</quiet>
+                    <failIfMissing>true</failIfMissing>
+                    <strictCheck>true</strictCheck>
+                    <aggregate>true</aggregate>
+                    <includes>
+                        <include>**/com/waltercedric/**/*.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>target/**</exclude>
+                        <exclude>**/pom.xml</exclude>
+                        <exclude>_*.java</exclude>
+                    </excludes>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                    <properties>
+                        <year>2017</year>
+                    </properties>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <transformers>
+                                <!--required by maryTTS-->
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.waltercedric.tvprogram.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jre8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+
+        <!--ROME is a Java framework for RSS and Atom feeds. It's open source and licensed under the Apache 2.0 license.-->
+        <!--ROME includes a set of parsers and generators for the various flavors of syndication feeds, as well as
+        converters to convert from one format to another. The parsers can give you back Java objects that are either
+        specific for the format you want to work with, or a generic normalized SyndFeed class that lets you work on
+        with the data without bothering about the incoming or outgoing feed type.-->
+        <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>${rome.version}</version>
+        </dependency>
+
+        <!--TODO http://pi4j.com/example/control.html-->
+        <!--Activate the desired language-->
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>voice-cmu-slt-hsmm</artifactId>
+            <version>${marytts.version}</version>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>de.dfki.mary</groupId>-->
+        <!--<artifactId>voice-dfki-pavoque-neutral-hsmm</artifactId>-->
+        <!--<version>${marytts.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>de.dfki.mary</groupId>-->
+        <!--<artifactId>voice-dfki-prudence-hsmm</artifactId>-->
+        <!--<version>${marytts.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>de.dfki.mary</groupId>-->
+        <!--<artifactId>voice-enst-dennys-hsmm</artifactId>-->
+        <!--<version>${marytts.version}</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>voice-upmc-pierre-hsmm</artifactId>
+            <version>${marytts.version}</version>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>de.dfki.mary</groupId>-->
+        <!--<artifactId>voice-enst-camille-hsmm</artifactId>-->
+        <!--<version>${marytts.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>de.dfki.mary</groupId>-->
+        <!--<artifactId>voice-enst-camille</artifactId>-->
+        <!--<version>${marytts.version}</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>de.dfki.mary</groupId>-->
+        <!--<artifactId>voice-istc-lucia-hsmm</artifactId>-->
+        <!--<version>${marytts.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- templates for sentences -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.25-incubating</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+
+        <!-- junit 5 -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>1.0.0-M3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.0.0-M3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.0.0-M3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.7.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test-junit</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
+        <!-- amazon polly tts-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-polly</artifactId>
+            <version>1.11.103</version>
+        </dependency>
+        <!-- mp3 audio player -->
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>jlayer</artifactId>
+            <version>1.0.1-1</version>
+        </dependency>
+        <!-- required by aws client auth-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
+        </dependency>
+
+        <!-- raspberry pi -->
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-core</artifactId>
+            <version>1.1</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <!-- Mary TTS -->
+        <repository>
+            <id>MaryTTS</id>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
+</project>
